@@ -1,6 +1,6 @@
 import axios, { isAxiosError } from "axios";
 import { useEffect, useState } from "react";
-import { styled } from "styled-components";
+import styled, { css } from "styled-components";
 // import { Ibackground } from "../types/background";
 // import {Submit} from "/images/submit.png";
 
@@ -8,6 +8,15 @@ const ACCESS_KEY = "RfZSbn_rdvEPrnhslq8HRwmCwyayZg3DBo_LDcXXaTM";
 
 export const Newsletter = () => {
   const [background, setBackground] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [isValid, setIsValid] = useState(true);
+
+  const validateEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const currentEmail = event.target.value;
+    setEmail(currentEmail);
+    const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+    setIsValid(regex.test(currentEmail));
+  };
 
   useEffect(() => {
     const savedBackground = localStorage.getItem("backgroundUrl");
@@ -30,8 +39,6 @@ export const Newsletter = () => {
     }
   }, []);
 
-  console.log(background);
-
   return (
     <>
       <Wrapper background={background}>
@@ -52,13 +59,26 @@ export const Newsletter = () => {
             accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
             quae ab illo inventore.
           </p>
-          <Input>
+          <Form className="form-el">
             <h3>Subscribe to our newsletter</h3>
-            {/* <label>
-              <img src="/images/submit.png" alt="Submit" />
-            </label> */}
-            <input type="text" placeholder="Enter your email" />
-          </Input>
+            <label htmlFor="email">
+              {/* <img src="/images/submit.png" alt="Submit" /> */}
+            </label>
+            <InputWrap>
+              <Input
+                type="text"
+                placeholder="Enter your email"
+                value={email}
+                $isValid={isValid}
+                $isEmail={email}
+                onChange={validateEmail}
+                required
+              />
+              {email !== "" && !isValid && (
+                <InvalidMessage>Please enter a valid email!</InvalidMessage>
+              )}
+            </InputWrap>
+          </Form>
         </ContentOverlay>
       </Wrapper>
     </>
@@ -118,20 +138,53 @@ const ContentOverlay = styled.div`
   }
 `;
 
-const Input = styled.div`
-  input {
-    width: 500px;
-    height: 50px;
-    flex-grow: 0;
-    margin: 16px 0 0;
-    padding: 4px 10px;
-    border-radius: 7px;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: solid 1px ${({ theme }) => theme.white};
-    background-color: rgba(255, 255, 255, 0.1);
-    &::placeholder {
-      color: ${({ theme }) => theme.white};
-    }
+const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const InputWrap = styled.div`
+  width: 500px;
+`;
+
+const Input = styled.input<{ $isValid: boolean; $isEmail: string }>`
+  width: 100%;
+  height: 50px;
+  flex-grow: 0;
+  margin: 16px 0 0;
+  padding: 4px 10px;
+  border-radius: 7px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid ${({ theme }) => theme.white};
+  background-color: rgba(255, 255, 255, 0.1);
+  &::placeholder {
+    color: ${({ theme }) => theme.white};
   }
+  ${({ $isValid, $isEmail }) =>
+    $isEmail !== ""
+      ? $isValid
+        ? css`
+            border-color: ${({ theme }) => theme.green};
+          `
+        : css`
+            border-color: ${({ theme }) => theme.orange};
+          `
+      : css`
+          border-color: ${({ theme }) => theme.white};
+        `};
+`;
+
+const InvalidMessage = styled.p`
+  width: 100%;
+  height: 19px;
+  margin: 9px 302px 0 16px;
+  font-family: Exo2;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: normal;
+  letter-spacing: -0.24px;
+  text-align: left;
+  color: ${({ theme }) => theme.orange} !important;
 `;
