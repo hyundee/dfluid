@@ -138,7 +138,7 @@ const GlobalStyle = createGlobalStyle`
         outline: none;
       }
       @font-face {
-        font-family: 'Exo 2';
+        font-family: 'Exo2';
         font-style: normal;
         font-weight: 100 900;
         src: url('https://fonts.googleapis.com/css2?family=Exo+2:wght@100,200,300,400,500,600,700,800,900&display=swap');
