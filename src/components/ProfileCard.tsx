@@ -21,25 +21,54 @@ export const ProfileCard = () => {
 
   return (
     <Wrapper>
-      {profileList?.map((profile) => (
-        <div key={profile.id}>
-          <img src={profile.img} alt={profile.title} />
-          <h2>{profile.title}</h2>
-          <p>{profile.content}</p>
-          <Button>LEARN MORE</Button>
-        </div>
-      ))}
+      {profileList
+        ?.sort(() => Math.random() - 0.5)
+        .map((profile) => (
+          <Profile key={profile.id}>
+            <img src={profile.img} alt={profile.title} />
+            <TextWrap>
+              <h2>{profile.title}</h2>
+              <p>{profile.content}</p>
+              <Button>LEARN MORE</Button>
+            </TextWrap>
+          </Profile>
+        ))}
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  gap: 20px;
+`;
 
-const Button = styled.button`
+const TextWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 24px;
+  font-family: Montserrat;
+  color: ${(props) => props.theme.black};
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+    letter-spacing: -0.36px;
+  }
+  p {
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 1.67;
+    letter-spacing: -0.27px;
+    color: ${(props) => props.theme.black_80};
+  }
+`;
+
+const Profile = styled.div``;
+
+const Button = styled.div`
   width: 100%;
   height: 30px;
-  flex-grow: 0;
-  margin: 24px 0 0;
   font-family: Exo2;
   font-size: 18px;
   font-weight: bold;
