@@ -61,16 +61,14 @@ export const Newsletter = () => {
           </p>
           <Form className="form-el">
             <h3>Subscribe to our newsletter</h3>
-            <label htmlFor="email">
-              {/* <img src="/images/submit.png" alt="Submit" /> */}
-            </label>
-            <InputWrap>
-              <Input
+            <InputWrap $isValid={isValid} $isEmail={email}>
+              <label htmlFor="email">
+                <img src="/images/submit.png" alt="Submit" />
+              </label>
+              <input
                 type="text"
                 placeholder="Enter your email"
                 value={email}
-                $isValid={isValid}
-                $isEmail={email}
                 onChange={validateEmail}
                 required
               />
@@ -88,7 +86,7 @@ export const Newsletter = () => {
 const Wrapper = styled.div<{ background: string }>`
   width: 100%;
   height: 740px;
-  margin: 110px 0 50px;
+  margin: 110px 0 0;
   object-fit: contain;
   background-image: ${({ background }) =>
     background ? `url(${background})` : "none"};
@@ -144,37 +142,87 @@ const Form = styled.div`
   align-items: center;
 `;
 
-const InputWrap = styled.div`
+const InputWrap = styled.div<{ $isValid: boolean; $isEmail: string }>`
   width: 500px;
+  label {
+    display: block;
+    width: 100%;
+    position: relative;
+    img {
+      position: absolute;
+      top: 25px;
+      right: 10px;
+      z-index: 1;
+      ${({ $isValid, $isEmail }) =>
+        $isEmail !== ""
+          ? $isValid
+            ? css`
+                opacity: 100%;
+              `
+            : css`
+                opacity: 50%;
+              `
+          : css`
+              opacity: 50%;
+            `};
+    }
+  }
+  input {
+    width: 100%;
+    height: 50px;
+    flex-grow: 0;
+    margin: 16px 0 0;
+    padding: 4px 10px;
+    border-radius: 7px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid ${({ theme }) => theme.white};
+    background-color: rgba(255, 255, 255, 0.1);
+    &::placeholder {
+      color: ${({ theme }) => theme.white};
+    }
+    ${({ $isValid, $isEmail }) =>
+      $isEmail !== ""
+        ? $isValid
+          ? css`
+              border-color: ${({ theme }) => theme.green};
+            `
+          : css`
+              border-color: ${({ theme }) => theme.orange};
+            `
+        : css`
+            border-color: ${({ theme }) => theme.white};
+          `};
+  }
 `;
 
-const Input = styled.input<{ $isValid: boolean; $isEmail: string }>`
-  width: 100%;
-  height: 50px;
-  flex-grow: 0;
-  margin: 16px 0 0;
-  padding: 4px 10px;
-  border-radius: 7px;
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  border: 1px solid ${({ theme }) => theme.white};
-  background-color: rgba(255, 255, 255, 0.1);
-  &::placeholder {
-    color: ${({ theme }) => theme.white};
-  }
-  ${({ $isValid, $isEmail }) =>
-    $isEmail !== ""
-      ? $isValid
-        ? css`
-            border-color: ${({ theme }) => theme.green};
-          `
-        : css`
-            border-color: ${({ theme }) => theme.orange};
-          `
-      : css`
-          border-color: ${({ theme }) => theme.white};
-        `};
-`;
+// const Input = styled.input<{ $isValid: boolean; $isEmail: string }>`
+//   width: 100%;
+//   height: 50px;
+//   flex-grow: 0;
+//   margin: 16px 0 0;
+//   padding: 4px 10px;
+//   border-radius: 7px;
+//   -webkit-backdrop-filter: blur(10px);
+//   backdrop-filter: blur(10px);
+//   border: 1px solid ${({ theme }) => theme.white};
+//   background-color: rgba(255, 255, 255, 0.1);
+//   &::placeholder {
+//     color: ${({ theme }) => theme.white};
+//   }
+//   ${({ $isValid, $isEmail }) =>
+//     $isEmail !== ""
+//       ? $isValid
+//         ? css`
+//             border-color: ${({ theme }) => theme.green};
+//           `
+//         : css`
+//             border-color: ${({ theme }) => theme.orange};
+//           `
+//       : css`
+//           border-color: ${({ theme }) => theme.white};
+//         `};
+// `;
 
 const InvalidMessage = styled.p`
   width: 100%;

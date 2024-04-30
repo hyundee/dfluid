@@ -19,7 +19,7 @@ function App() {
 export default App;
 
 const Wrapper = styled.div`
-  padding: 120px 0 25px;
+  padding: 120px 0 0;
 `;
 
 const Header = styled.div`
