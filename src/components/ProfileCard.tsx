@@ -1,7 +1,7 @@
 import axios, { isAxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { styled } from "styled-components";
-import { IProfileCard } from "../types/ProfileCard";
+import { IProfileCard } from "../types/profile";
 
 export const ProfileCard = () => {
   const [profileList, setProfileList] = useState<IProfileCard[]>([]);
@@ -40,6 +40,8 @@ export const ProfileCard = () => {
 const Wrapper = styled.div`
   display: flex;
   gap: 20px;
+  padding: 0 80px;
+  margin-bottom: 110px;
 `;
 
 const TextWrap = styled.div`
