@@ -96,10 +96,10 @@ const Wrapper = styled.div<{ background: string }>`
   text-align: center;
   * {
     color: ${({ theme }) => theme.white};
+    font-family: Montserrat;
   }
   h2 {
     margin: 0 0 23px;
-    font-family: Montserrat;
     font-size: 24px;
     font-weight: bold;
     line-height: 1.5;
@@ -109,6 +109,7 @@ const Wrapper = styled.div<{ background: string }>`
   }
   p:nth-of-type(1) {
     margin-top: 23px;
+    font-weight: normal;
     font-size: 18px;
     color: ${({ theme }) => theme.white_80};
   }
@@ -116,6 +117,7 @@ const Wrapper = styled.div<{ background: string }>`
     width: 100%;
     height: 43px;
     margin-bottom: 97px;
+    font-weight: normal;
     font-size: 14px;
     line-height: 1.57;
     letter-spacing: -0.21px;
@@ -140,6 +142,9 @@ const Form = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  * {
+    font-family: "Exo2";
+  }
 `;
 
 const InputWrap = styled.div<{ $isValid: boolean; $isEmail: string }>`
@@ -168,6 +173,7 @@ const InputWrap = styled.div<{ $isValid: boolean; $isEmail: string }>`
     }
   }
   input {
+    font-weight: normal;
     width: 100%;
     height: 50px;
     flex-grow: 0;
@@ -196,41 +202,13 @@ const InputWrap = styled.div<{ $isValid: boolean; $isEmail: string }>`
   }
 `;
 
-// const Input = styled.input<{ $isValid: boolean; $isEmail: string }>`
-//   width: 100%;
-//   height: 50px;
-//   flex-grow: 0;
-//   margin: 16px 0 0;
-//   padding: 4px 10px;
-//   border-radius: 7px;
-//   -webkit-backdrop-filter: blur(10px);
-//   backdrop-filter: blur(10px);
-//   border: 1px solid ${({ theme }) => theme.white};
-//   background-color: rgba(255, 255, 255, 0.1);
-//   &::placeholder {
-//     color: ${({ theme }) => theme.white};
-//   }
-//   ${({ $isValid, $isEmail }) =>
-//     $isEmail !== ""
-//       ? $isValid
-//         ? css`
-//             border-color: ${({ theme }) => theme.green};
-//           `
-//         : css`
-//             border-color: ${({ theme }) => theme.orange};
-//           `
-//       : css`
-//           border-color: ${({ theme }) => theme.white};
-//         `};
-// `;
-
 const InvalidMessage = styled.p`
   width: 100%;
   height: 19px;
   margin: 9px 302px 0 16px;
   font-family: Exo2;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: normal;
   line-height: normal;
   letter-spacing: -0.24px;
   text-align: left;

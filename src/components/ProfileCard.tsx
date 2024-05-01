@@ -49,15 +49,17 @@ const TextWrap = styled.div`
   flex-direction: column;
   align-items: start;
   gap: 24px;
-  font-family: Montserrat;
   color: ${(props) => props.theme.black};
   h2 {
+    font-family: Montserrat;
     font-size: 24px;
     font-weight: bold;
     line-height: 1.5;
     letter-spacing: -0.36px;
+    margin-top: 40px;
   }
   p {
+    font-family: Montserrat;
     font-size: 18px;
     font-weight: normal;
     line-height: 1.67;
