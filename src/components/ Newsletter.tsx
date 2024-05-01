@@ -1,10 +1,7 @@
-import axios, { isAxiosError } from "axios";
+import { isAxiosError } from "axios";
 import { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
-// import { Ibackground } from "../types/background";
-// import {Submit} from "/images/submit.png";
-
-const ACCESS_KEY = "RfZSbn_rdvEPrnhslq8HRwmCwyayZg3DBo_LDcXXaTM";
+import { getBackgroundData } from "../apis/BackgroundApi";
 
 export const Newsletter = () => {
   const [background, setBackground] = useState<string>("");
@@ -20,66 +17,62 @@ export const Newsletter = () => {
 
   useEffect(() => {
     const savedBackground = localStorage.getItem("backgroundUrl");
+
     if (savedBackground) {
       setBackground(savedBackground);
     } else {
-      const getBackgroundData = async () => {
+      const fetchBackground = async () => {
         try {
-          const res = await axios.get(
-            `https://api.unsplash.com/photos/random?client_id=${ACCESS_KEY}`
-          );
-          const imageUrl = res.data.urls.regular;
+          const imageUrl = await getBackgroundData();
           setBackground(imageUrl);
           localStorage.setItem("backgroundUrl", imageUrl);
         } catch (error) {
           if (isAxiosError(error)) throw new Error(error.response?.data);
         }
       };
-      getBackgroundData();
+      fetchBackground();
     }
   }, []);
 
   return (
-    <>
-      <Wrapper background={background}>
-        <ContentOverlay>
-          <h2>Sed ut perspiciatis unde omnis</h2>
-          <p>
-            There are many variations of passages of Lorem Ipsum available, but
-            the majority have suffered alteration in some form, by injected
-            humour, or randomised words which don't look even slightly
-            believable. If you are going to use a passage of Lorem Ipsum, you
-            need to be sure there isn't anything embarrassing hidden in the
-            middle of text. All the Lorem Ipsum generators on the Internet tend
-            to repeat predefined chunks as necessary.
-          </p>
-          <hr />
-          <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-            quae ab illo inventore.
-          </p>
-          <Form className="form-el">
-            <h3>Subscribe to our newsletter</h3>
-            <InputWrap $isValid={isValid} $isEmail={email}>
-              <label htmlFor="email">
-                <img src="/images/submit.png" alt="Submit" />
-              </label>
-              <input
-                type="text"
-                placeholder="Enter your email"
-                value={email}
-                onChange={validateEmail}
-                required
-              />
-              {email !== "" && !isValid && (
-                <InvalidMessage>Please enter a valid email!</InvalidMessage>
-              )}
-            </InputWrap>
-          </Form>
-        </ContentOverlay>
-      </Wrapper>
-    </>
+    <Wrapper background={background}>
+      <ContentOverlay>
+        <h2>Sed ut perspiciatis unde omnis</h2>
+        <p>
+          There are many variations of passages of Lorem Ipsum available, but
+          the majority have suffered alteration in some form, by injected
+          humour, or randomised words which don't look even slightly believable.
+          If you are going to use a passage of Lorem Ipsum, you need to be sure
+          there isn't anything embarrassing hidden in the middle of text. All
+          the Lorem Ipsum generators on the Internet tend to repeat predefined
+          chunks as necessary.
+        </p>
+        <hr />
+        <p>
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
+          ab illo inventore.
+        </p>
+        <Form className="form-el">
+          <h3>Subscribe to our newsletter</h3>
+          <InputWrap $isValid={isValid} $isEmail={email}>
+            <label htmlFor="email">
+              <img src="/images/submit.png" alt="Submit" />
+            </label>
+            <input
+              type="text"
+              placeholder="Enter your email"
+              value={email}
+              onChange={validateEmail}
+              required
+            />
+            {email !== "" && !isValid && (
+              <InvalidMessage>Please enter a valid email!</InvalidMessage>
+            )}
+          </InputWrap>
+        </Form>
+      </ContentOverlay>
+    </Wrapper>
   );
 };
 
