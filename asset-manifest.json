@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/dfluid/static/js/main.618f6136.js",
+    "main.js": "/dfluid/static/js/main.380dd2b4.js",
     "index.html": "/dfluid/index.html",
-    "main.618f6136.js.map": "/dfluid/static/js/main.618f6136.js.map"
+    "main.380dd2b4.js.map": "/dfluid/static/js/main.380dd2b4.js.map"
   },
   "entrypoints": [
-    "static/js/main.618f6136.js"
+    "static/js/main.380dd2b4.js"
   ]
 }
