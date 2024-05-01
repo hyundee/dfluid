@@ -35,7 +35,7 @@ export const Newsletter = () => {
   }, []);
 
   return (
-    <Wrapper background={background}>
+    <Wrapper $background={background}>
       <ContentOverlay>
         <h2>Sed ut perspiciatis unde omnis</h2>
         <p>
@@ -76,13 +76,13 @@ export const Newsletter = () => {
   );
 };
 
-const Wrapper = styled.div<{ background: string }>`
+const Wrapper = styled.div<{ $background: string }>`
   width: 100%;
   height: 740px;
   margin: 110px 0 0;
   object-fit: contain;
-  background-image: ${({ background }) =>
-    background ? `url(${background})` : "none"};
+  background-image: ${({ $background }) =>
+    $background ? `url(${$background})` : "none"};
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
